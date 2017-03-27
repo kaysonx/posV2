@@ -71,19 +71,19 @@ describe('Resolve barcode', () => {
             unit: '瓶',
             price: 3,
             count: 4,
-            promotion_type:'BUY_TWO_GET_ONE_FREE'
+            promotion_type: 'BUY_TWO_GET_ONE_FREE'
         }]
         expect(handleBarcode.getGoodsPromotion(inputGoodsInfo)).toEqual(expectResult)
     });
 
-     it('should get count goods price by goodsInfo', () => {
+    it('should get count goods price by goodsInfo', () => {
         let inputGoodsInfo = {
             barcode: 'ITEM000001',
             name: '雪碧',
             unit: '瓶',
             price: 3,
             count: 4,
-            promotion_type:'BUY_TWO_GET_ONE_FREE'
+            promotion_type: 'BUY_TWO_GET_ONE_FREE'
         }
 
         let expectResult = {
@@ -92,11 +92,39 @@ describe('Resolve barcode', () => {
             unit: '瓶',
             price: 3,
             count: 4,
-            promotion_type:'BUY_TWO_GET_ONE_FREE',
-            total_price:9,
-            save_price:3
+            promotion_type: 'BUY_TWO_GET_ONE_FREE',
+            total_price: 9,
+            save_price: 3
         }
         expect(handleBarcode.countGoodsPrice(inputGoodsInfo)).toEqual(expectResult)
+    });
+
+    it('should get count all goods price and save by goodsInfos', () => {
+        let inputGoodsInfos = [{
+            barcode: 'ITEM000001',
+            name: '雪碧',
+            unit: '瓶',
+            price: 3,
+            count: 4,
+            promotion_type: 'BUY_TWO_GET_ONE_FREE'
+        }]
+
+        let expectResult = {
+            cartItems: [{
+                barcode: 'ITEM000001',
+                name: '雪碧',
+                unit: '瓶',
+                price: 3,
+                count: 4,
+                promotion_type: 'BUY_TWO_GET_ONE_FREE',
+                total_price: 9,
+                save_price: 3
+            }],
+            all_price: 9,
+            all_save: 3
+        }
+
+        expect(handleBarcode.countAllGoodsPrice(inputGoodsInfos)).toEqual(expectResult)
     });
 
 });
