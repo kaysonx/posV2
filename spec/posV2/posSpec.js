@@ -1,6 +1,7 @@
 
-
-describe('Resolve barcode', () => {
+//command + p ctrl + tab
+//command + d 重构名字
+describe('print receipt', () => {
     let handleBarcode = require('../../lib/posV2/resolveBarcode')
 
     it('should resolve barcode without count', () => {
@@ -20,7 +21,6 @@ describe('Resolve barcode', () => {
         }]
         expect(handleBarcode.resolveBarcode(inputBarcode)).toEqual(expectResult)
     })
-
 
     it('should count barcode', () => {
         let inputBarcode = [{
@@ -63,6 +63,12 @@ describe('Resolve barcode', () => {
             unit: '瓶',
             price: 3,
             count: 4
+        }, {
+            barcode: 'ITEM000003',
+            name: '荔枝',
+            unit: '斤',
+            price: 15,
+            count: 2.5
         }]
 
         let expectResult = [{
@@ -72,6 +78,13 @@ describe('Resolve barcode', () => {
             price: 3,
             count: 4,
             promotion_type: 'BUY_TWO_GET_ONE_FREE'
+        }, {
+            barcode: 'ITEM000003',
+            name: '荔枝',
+            unit: '斤',
+            price: 15,
+            count: 2.5,
+            promotion_type: ""
         }]
         expect(handleBarcode.getGoodsPromotion(inputGoodsInfo)).toEqual(expectResult)
     });
@@ -86,6 +99,15 @@ describe('Resolve barcode', () => {
             promotion_type: 'BUY_TWO_GET_ONE_FREE'
         }
 
+        let inputGoodsInfoWithoutPromotion = {
+            barcode: 'ITEM000003',
+            name: '荔枝',
+            unit: '斤',
+            price: 15,
+            count: 2.5,
+            promotion_type: ""
+        }
+
         let expectResult = {
             barcode: 'ITEM000001',
             name: '雪碧',
@@ -96,6 +118,17 @@ describe('Resolve barcode', () => {
             total_price: 9,
             save_price: 3
         }
+        let expectResultWithoutPromotion = {
+            barcode: 'ITEM000003',
+            name: '荔枝',
+            unit: '斤',
+            price: 15,
+            count: 2.5,
+            promotion_type: "",
+            total_price: 37.5,
+            save_price: 0
+        }
+
         expect(handleBarcode.countGoodsPrice(inputGoodsInfo)).toEqual(expectResult)
     });
 
@@ -107,6 +140,13 @@ describe('Resolve barcode', () => {
             price: 3,
             count: 4,
             promotion_type: 'BUY_TWO_GET_ONE_FREE'
+        }, {
+            barcode: 'ITEM000003',
+            name: '荔枝',
+            unit: '斤',
+            price: 15,
+            count: 2.5,
+            promotion_type: ""
         }]
 
         let expectResult = {
@@ -119,8 +159,17 @@ describe('Resolve barcode', () => {
                 promotion_type: 'BUY_TWO_GET_ONE_FREE',
                 total_price: 9,
                 save_price: 3
+            }, {
+                barcode: 'ITEM000003',
+                name: '荔枝',
+                unit: '斤',
+                price: 15,
+                count: 2.5,
+                promotion_type: "",
+                total_price: 37.5,
+                save_price: 0
             }],
-            all_price: 9,
+            all_price: 46.5,
             all_save: 3
         }
 
@@ -165,7 +214,6 @@ describe('Resolve barcode', () => {
 总计：58.50(元)
 节省：7.50(元)
 **********************`;
-
         expect(console.log).toHaveBeenCalledWith(expectText);
     });
 
