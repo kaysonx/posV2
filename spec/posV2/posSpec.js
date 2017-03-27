@@ -33,10 +33,28 @@ describe('Resolve barcode', () => {
         }]
 
         let expectResult = [{
-            barcode:'ITEM000001',
-            count:4
-        }]  
+            barcode: 'ITEM000001',
+            count: 4
+        }]
         expect(handleBarcode.countBarcode(inputBarcode)).toEqual(expectResult)
     });
+
+
+    it('should getGoods info by barcode', () => {
+        let inputBarcode = [{
+            barcode: 'ITEM000001',
+            count: 4
+        }]
+
+        let expectResult = [{
+            barcode: 'ITEM000001',
+            name: '雪碧',
+            unit: '瓶',
+            price: 3,
+            count: 4
+        }]
+        expect(handleBarcode.getGoodsInfo(inputBarcode)).toEqual(expectResult)
+    });
+
 
 });
