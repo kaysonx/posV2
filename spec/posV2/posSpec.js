@@ -56,5 +56,25 @@ describe('Resolve barcode', () => {
         expect(handleBarcode.getGoodsInfo(inputBarcode)).toEqual(expectResult)
     });
 
+    it('should get promotion info by barcode', () => {
+        let inputGoodsInfo = [{
+            barcode: 'ITEM000001',
+            name: '雪碧',
+            unit: '瓶',
+            price: 3,
+            count: 4
+        }]
+
+        let expectResult = [{
+            barcode: 'ITEM000001',
+            name: '雪碧',
+            unit: '瓶',
+            price: 3,
+            count: 4,
+            promotion_type:'BUY_TWO_GET_ONE_FREE'
+        }]
+        expect(handleBarcode.getGoodsPromotion(inputGoodsInfo)).toEqual(expectResult)
+    });
+
 
 });
