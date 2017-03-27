@@ -12,13 +12,13 @@ describe('Resolve barcode', () => {
         expect(resolveBarcode(inputBarcode)).toEqual(expectResult)
     })
 
-    //  it('should resolve barcode contain count', ()=>{
-    //     let inputBarcode = ['ITEM000001-3']
-    //     let expectResult = [{
-    //         barcode:'ITEM000001',
-    //         count:3
-    //     }]
-    //     expect(resolveBarcode(inputBarcode)).toEqual(expectResult)
-    // })
+     it('should resolve barcode contain count', ()=>{
+        let inputBarcode = ['ITEM000001-3']
+        let expectResult = [{
+            barcode:'ITEM000001',
+            count:3
+        }]
+        expect(resolveBarcode(inputBarcode)).toEqual(expectResult)
+    })
 });
     
